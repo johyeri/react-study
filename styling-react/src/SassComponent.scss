@@ -1,5 +1,3 @@
-@import './styles/utils';
-
 /* styles/utils.scss 로 이동 */
 //// 변수 사용하기
 //$red: #fa5252;
@@ -18,6 +16,10 @@
 
 .SassComponent {
   display: flex;
+  background: $oc-gray-2;
+  @include media('<768px') {
+    background: $oc-gray-9;
+  }
   .box { //일반 CSS에서는 .SassComponent .box와 마찬가지이다.
     background: red;
     cursor: pointer;
