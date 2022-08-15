@@ -5,6 +5,12 @@
     padding: 1rem;
     color: white;
     font-size: 2rem;
+  &.inverted {
+    // inverted가 .wrapper와 함께 사용되었을 때만 적용됨
+    color: black;
+    background: white;
+    border: 1px solid black;
+  }
 }
 
 /* 글로벌 CSS를 작성하고 싶다면? */
