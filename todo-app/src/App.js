@@ -1,4 +1,4 @@
-import { useReducer, useState, useRef, useCallback } from 'react';
+import { useReducer, useRef, useCallback } from 'react';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
@@ -29,11 +29,16 @@ function todoReducer(todos, action) {
       return todos.map(todo =>
         todo.id === action.id ? { ...todo, checked: !todo.checked } : todo,
       );
+    default:
+      return todos;
   }
 }
 
 const App = () => {
-  const [todos, setTodos] = useState(createBulkTodos);
+  // 11.5.2 => 세번째 파라미터에 초기상태를 만들어주는 함수를 넣어,
+  // 컴포넌트가 맨 처음 렌더링될 때만 createBulkTodos 함수가 호출되도록 함.
+  const [todos, dispatch] = useReducer(todoReducer, undefined, createBulkTodos);
+  // const [todos, setTodos] = useState(createBulkTodos);
   // const [todos, setTodos] = useState([
   //   {
   //     id: 1,
@@ -63,19 +68,19 @@ const App = () => {
         text,
         checked: false,
       };
+      dispatch({ type: 'INSERT', todo });
       // setTodos(todos.concat(todo));
-      setTodos(todos => todos.concat(todo));
+      // setTodos(todos => todos.concat(todo));
       nextId.current += 1; // nextId 1씩 더하기
-    },
-    [todos],
-  )
+    },[])
 
   // const onRemove = useCallback(id => {
   //     setTodos(todos.filter(todo => todo.id !== id));
   //   }, [todos],
   // )
   const onRemove = useCallback(id => {
-    setTodos(todos => todos.filter(todo => todo.id !== id));
+    dispatch({ type: 'REMOVE', id });
+    // setTodos(todos => todos.filter(todo => todo.id !== id));
     }, []);
 
   // const onToggle = useCallback(
@@ -89,11 +94,12 @@ const App = () => {
   //   [todos],
   // )
   const onToggle = useCallback(id => {
-    setTodos(todos =>
-      todos.map(todo =>
-          todo.id === id ? {...todo, checked: !todo.checked} : todo,
-      ),
-    );
+    dispatch({ type: 'TOGGLE', id });
+    // setTodos(todos =>
+    //   todos.map(todo =>
+    //       todo.id === id ? {...todo, checked: !todo.checked} : todo,
+    //   ),
+    // );
   }, []);
 
   return (
