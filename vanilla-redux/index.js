@@ -53,3 +53,18 @@ function reducer(state = initialState, action) {
  * createStore -> configureStore
  * reducer -> createSlice */
 const store = configureStore(createSlice);
+
+// render 함수 만들기
+const render = () => {
+  const state = store.getState(); // 현재 상태 불러오기
+  //토글 처리
+  if (state.toggle) {
+    divToggle.classList.add('active');
+  } else {
+    divToggle.classList.remove('active');
+  }
+  // 카운터 처리
+  counter.innerText = state.counter;
+}
+
+render();

@@ -994,7 +994,23 @@ function reducer() {
  * reducer -> createSlice */
 
 
-var store = (0, _redux.configureStore)(_redux.createSlice);
+var store = (0, _redux.configureStore)(_redux.createSlice); // render 함수 만들기
+
+var render = function render() {
+  var state = store.getState(); // 현재 상태 불러오기
+  //토글 처리
+
+  if (state.toggle) {
+    divToggle.classList.add('active');
+  } else {
+    divToggle.classList.remove('active');
+  } // 카운터 처리
+
+
+  counter.innerText = state.counter;
+};
+
+render();
 },{"redux":"node_modules/redux/es/redux.js"}],"../../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
