@@ -1,10 +1,11 @@
-import { configureStore, createSlice } from 'redux';
+import { createStore } from 'redux';
 
+// DOM 레퍼런스 만들기
 // DOM 노드를 가리키는 값을 미리 선언한다.
 const divToggle = document.querySelector('.toggle');
 const counter = document.querySelector('h1');
-const btnIncrease = document.querySelector('.increase');
-const btnDecrease = document.querySelector('.decrease');
+const btnIncrease = document.querySelector('#increase');
+const btnDecrease = document.querySelector('#decrease');
 
 //액션은 고유한 값이므로 대문자로 작성한다. 이름이 중복되지 않도록 주의한다.
 const TOGGLE_SWITCH = 'TOGGLE_SWITCH';
@@ -52,7 +53,7 @@ function reducer(state = initialState, action) {
 /* 대체된 스토어들
  * createStore -> configureStore
  * reducer -> createSlice */
-const store = configureStore(createSlice);
+const store = createStore(reducer);
 
 // render 함수 만들기
 const render = () => {
@@ -68,3 +69,16 @@ const render = () => {
 }
 
 render();
+store.subscribe(render); // store 의 상태가 바뀔 때마다 render 함수가 호출됨
+
+// 액션 발생시키기
+// 각 DOM 요소에 클릭 인벤트를 설정하고, 이벤트 함수 내부에서는 dispatch 함수를 사용하여 액션을 스토어에게 전달함.
+divToggle.onclick = () => {
+  store.dispatch(toggleSwitch());
+};
+divToggle.onclick = () => {
+  store.dispatch(increase(1));
+};
+divToggle.onclick = () => {
+  store.dispatch(decrease());
+};

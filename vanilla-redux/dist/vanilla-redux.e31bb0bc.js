@@ -924,11 +924,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+// DOM 레퍼런스 만들기
 // DOM 노드를 가리키는 값을 미리 선언한다.
 var divToggle = document.querySelector('.toggle');
 var counter = document.querySelector('h1');
-var btnIncrease = document.querySelector('.increase');
-var btnDecrease = document.querySelector('.decrease'); //액션은 고유한 값이므로 대문자로 작성한다. 이름이 중복되지 않도록 주의한다.
+var btnIncrease = document.querySelector('#increase');
+var btnDecrease = document.querySelector('#decrease'); //액션은 고유한 값이므로 대문자로 작성한다. 이름이 중복되지 않도록 주의한다.
 
 var TOGGLE_SWITCH = 'TOGGLE_SWITCH';
 var INCREASE = 'INCREASE';
@@ -994,7 +995,7 @@ function reducer() {
  * reducer -> createSlice */
 
 
-var store = (0, _redux.configureStore)(_redux.createSlice); // render 함수 만들기
+var store = (0, _redux.createStore)(reducer); // render 함수 만들기
 
 var render = function render() {
   var state = store.getState(); // 현재 상태 불러오기
@@ -1011,7 +1012,22 @@ var render = function render() {
 };
 
 render();
-},{"redux":"node_modules/redux/es/redux.js"}],"../../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+store.subscribe(render); // store 의 상태가 바뀔 때마다 render 함수가 호출됨
+// 액션 발생시키기
+// 각 DOM 요소에 클릭 인벤트를 설정하고, 이벤트 함수 내부에서는 dispatch 함수를 사용하여 액션을 스토어에게 전달함.
+
+divToggle.onclick = function () {
+  store.dispatch(toggleSwitch());
+};
+
+divToggle.onclick = function () {
+  store.dispatch(increase(1));
+};
+
+divToggle.onclick = function () {
+  store.dispatch(decrease());
+};
+},{"redux":"node_modules/redux/es/redux.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1039,7 +1055,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53025" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56902" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -1215,5 +1231,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/vanilla-redux.e31bb0bc.js.map
