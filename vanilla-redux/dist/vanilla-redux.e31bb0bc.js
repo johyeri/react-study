@@ -995,6 +995,7 @@ function reducer() {
  * reducer -> createSlice */
 
 
+<<<<<<< HEAD
 var store = (0, _redux.createStore)(reducer); // render 함수 만들기
 
 var render = function render() {
@@ -1028,6 +1029,10 @@ divToggle.onclick = function () {
   store.dispatch(decrease());
 };
 },{"redux":"node_modules/redux/es/redux.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+=======
+var store = (0, _redux.configureStore)(_redux.createSlice);
+},{"redux":"node_modules/redux/es/redux.js"}],"../../../../../../opt/homebrew/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+>>>>>>> parent of 1155ac9 (Commit before Chapter 16.2.8)
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
