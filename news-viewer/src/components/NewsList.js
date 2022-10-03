@@ -16,14 +16,7 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const sampleArticle = {
-  title: '제목',
-  description: '내용',
-  url: 'https://google.com',
-  urlToImage: 'https://via.placeholder.com/160'
-};
-
-const NewsList = () => {
+const NewsList = ({ category }) => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -32,8 +25,9 @@ const NewsList = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        const query = category === 'all' ? '' : `&category=${category}`;
         const response = await axios.get(
-          'https://newsapi.org/v2/top-headlines?country=kr&apiKey=06bbd9ba416346c1b438e5e4065e3a84',
+          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=06bbd9ba416346c1b438e5e4065e3a84`,
         );
         setArticles(response.data.articles);
       } catch (e) {
