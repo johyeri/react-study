@@ -1,4 +1,5 @@
 import NewsPage from './pages/NewsPage';
+import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
